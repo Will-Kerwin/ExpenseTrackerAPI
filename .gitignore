@@ -25,6 +25,7 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+expensetracker_db.sql
 
 ### NetBeans ###
 /nbproject/private/
