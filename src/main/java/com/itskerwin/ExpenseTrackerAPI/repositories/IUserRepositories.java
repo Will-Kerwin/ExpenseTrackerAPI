@@ -3,7 +3,7 @@ package com.itskerwin.ExpenseTrackerAPI.repositories;
 import com.itskerwin.ExpenseTrackerAPI.domain.User;
 import com.itskerwin.ExpenseTrackerAPI.exception.EtAuthException;
 
-public class UserRepositories {
+public interface IUserRepositories {
 
     Integer create(String firstName, String lastName, String email, String password) throws EtAuthException;
 
