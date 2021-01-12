@@ -1,20 +1,35 @@
 package com.itskerwin.ExpenseTrackerAPI.resources;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.itskerwin.ExpenseTrackerAPI.domain.Category;
+import com.itskerwin.ExpenseTrackerAPI.services.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryResource {
 
-    @GetMapping("")
-    public String getAllCategories(HttpServletRequest request){
+    @Autowired
+    CategoryService categoryService;
 
-        int userId = (int) request.getAttribute("userId");
-        System.out.println(userId);
+    @GetMapping("")
+    public String getAllCategories(HttpServletRequest request) {
+
+        int userId = (Integer) request.getAttribute("userId");
         return "Authenticated! UserId: " + userId;
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Category> addCategory(HttpServletRequest request, @RequestBody Map<String, Object> categoryMap) {
+        int userId = (Integer) request.getAttribute("userId");
+        String title = (String) categoryMap.get("title");
+        String description = (String) categoryMap.get("description");
+        Category category = categoryService.addCategory(userId, title, description);
+        return new ResponseEntity<>(category, HttpStatus.CREATED);
     }
 }
